@@ -35,21 +35,23 @@ def naked_twins(values):
     Returns:
         the values dictionary with the naked twins eliminated from peers.
     """
-    # Find all instances of naked twins
+    #
+    # Find all instances of naked twins 
+    #
     for unit in unitlist:
         # do an exhaustive search to find naked twins in each unit
         for b1 in unit: 
-            for b2 in unit[unit.index(b1) + 1 : ]: 
-                if values[b1] == values[b2] and len(values[b1]) == 2:
-                    # boxes b1 and b2 are naked twins
-                    naked_val = values[b1] 
-                    for other_boxes in unit: 
-                        #make sure we are not treating the naked boxes
-                        if other_boxes != b1 and other_boxes != b2:
-                            # Eliminate the naked twins as possibilities for their peers
-                            for d in naked_val: 
-                                new_val = values[other_boxes].replace(d, '')
-                                assign_value(values, other_boxes, new_val)
+            for b2 in unit[unit.index(b1) + 1 : ]: # avoid duplicate search 
+                naked_val = values[b1] 
+                # Check if boxes b1 and b2 are naked twins
+                if naked_val == values[b2] and len(naked_val) == 2:
+                    #exclude naked twin boxed from the search space
+                    other_boxes = [b for b in unit if b != b1 and b != b2]
+                    for box in other_boxes: 
+                        # Eliminate the naked twins as possibilities for their peers
+                        for d in naked_val: 
+                            new_val = values[box].replace(d, '')
+                            assign_value(values, box, new_val)
     return values
 
 def grid_values(grid):
