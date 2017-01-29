@@ -7,7 +7,7 @@ A: The Naked Twin constraint propagation is used to eliminate the implausible ch
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: Solving a diagonal Sudoku is very similar to a conventional one. The only difference is that two new constraints are added. In other words, the two diagonal series of boxes are added to the units. 
+A: Solving a diagonal Sudoku is very similar to a conventional one. The only difference is that two new constraints are added. In other words, the two diagonal series of boxes are added to the unit list. 
 
 ### Install
 
