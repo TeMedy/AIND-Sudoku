@@ -44,14 +44,14 @@ def naked_twins(values):
         # do an exhaustive search to find naked twins in each unit
         for b1 in unit: 
             for b2 in unit[unit.index(b1) + 1 : ]: # avoid duplicate search 
-                naked_val = values[b1] 
+                naked_twin_val = values[b1] 
                 # Check if boxes b1 and b2 are naked twins
-                if naked_val == values[b2] and len(naked_val) == 2:
+                if naked_twin_val == values[b2] and len(naked_twin_val) == 2:
                     #exclude naked twin boxed from the search space
                     other_boxes = [b for b in unit if b != b1 and b != b2]
                     for box in other_boxes: 
                         # Eliminate the naked twins as possibilities for their peers
-                        for d in naked_val: 
+                        for d in naked_twin_val: 
                             new_val = values[box].replace(d, '')
                             assign_value(values, box, new_val)
     return values
