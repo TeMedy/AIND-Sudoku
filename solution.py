@@ -7,6 +7,7 @@ def cross(A, B):
     "Cross product of elements in A and elements in B."
     return [a+b for a in A for b in B]
 
+"A global variable that contains all the boxes"
 boxes = cross(rows, cols)
 
 row_units = [cross(r, cols) for r in rows]
@@ -85,7 +86,7 @@ def display(values):
         values(dict): The sudoku in dictionary form
     """
     boxes = values.keys()
-    width = 1+max(len(values[s]) for s in boxes)
+    width = 1 + max(len(values[s]) for s in boxes)
     line = '+'.join(['-'*(width*3)]*3)
     for r in rows:
         print(''.join(values[r+c].center(width)+('|' if c in '36' else '')
@@ -100,8 +101,8 @@ def eliminate(values):
     Input: A sudoku in dictionary form.
     Output: The resulting sudoku in dictionary form.
     """
-    solved_values = [box for box in values.keys() if len(values[box]) == 1]
-    for box in solved_values:
+    solved_boxes = [box for box in values.keys() if len(values[box]) == 1]
+    for box in solved_boxes:
         digit = values[box]
         for peer in peers[box]:
             assign_value(values, peer, values[peer].replace(digit,''))
@@ -133,7 +134,6 @@ def reduce_puzzle(values):
     Input: A sudoku in dictionary form.
     Output: The resulting sudoku in dictionary form.
     """
-    solved_values = [box for box in values.keys() if len(values[box]) == 1]
     stalled = False
     while not stalled:
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
@@ -173,10 +173,7 @@ def solve(grid):
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
     values = grid_values(grid)
-    result = search(values)
-    if result is False: 
-        pass
-    return search(grid_values(grid))
+    return search(values)
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
